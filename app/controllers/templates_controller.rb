@@ -1,6 +1,7 @@
 class TemplatesController < ApplicationController
 
   def index
+    @templates = Template.all
   end
 
   def new
@@ -12,7 +13,6 @@ class TemplatesController < ApplicationController
     if @template.save
       values = get_values
       text = parse_template(@template.body, values)
-
       TemplateMailer.template_email(nil, text.html_safe).deliver_now
       redirect_to @template
     end
@@ -24,7 +24,8 @@ class TemplatesController < ApplicationController
   end
 
   def show
-    @template = Template.find(params["id"])
+    @template = Template.find(params['id'])
+    @placeholders = @template.placeholders
   end
 
   def parse_template(text, values)
@@ -38,7 +39,7 @@ class TemplatesController < ApplicationController
     text
   end
 
-  def get_values()
+  def get_values
     {
         user: 'claudiu',
         city: 'berlin',

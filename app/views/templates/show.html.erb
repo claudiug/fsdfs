@@ -1,1 +1,3 @@
 <%= @template.body.html_safe %>
+
+<%= @placeholders.pluck(:name, :active) %>

@@ -1,0 +1,5 @@
+<%- @templates.each do |template| -%>
+    <%= template.placeholders.pluck(:name) %>
+    <%= template.title %>
+    <%= template.body.html_safe %>
+<% end %>
