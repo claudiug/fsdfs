@@ -18,6 +18,13 @@ class TemplatesController < ApplicationController
     end
   end
 
+  def send_emails
+    @template = Template.find(params['id'])
+    values = get_values
+    text = parse_template(@template.body, values)
+    TemplateMailer.template_email(nil, text.html_safe).deliver_now
+    redirect_to @template
+  end
 
   def template_params
     params.require(:template).permit(:body)

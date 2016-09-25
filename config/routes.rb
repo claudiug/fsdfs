@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :templates
+  resources :templates do
+    member do
+      post 'send-email', to: 'templates#send_emails'
+    end
+  end
 end
